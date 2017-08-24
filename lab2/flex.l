@@ -1,30 +1,37 @@
-/* scanner for a toy Pascal-like language */
+
+ /* scanner for C language */
 
 %{
 /* need this for the call to atof() below */
-#include <math.h>
+#include<math.h>
+#include<stdio.h>
+#include<stdlib.h>
 %}
 
+
 DIGIT    [0-9]
-ID       [a-z][a-z0-9]*
+LETTER   [A-Za-z]
+ID       {LETTER}({LETTER}|{DIGIT}|_)*
+L        [\n]
+S        []
+QUOTE    ["]
+STRING   {QUOTE}({LETTER}|{S})*{QUOTE}
+KEYWORD  [int|float|do|finish|then|if|else|void|double|char|return|while|for|switch|auto|extren|volatile|]
+
 
 %%
 
-{DIGIT}+    {
-            printf( "An integer: %s (%d)\n", yytext,
-                    atoi( yytext ) );
+{STRING}  {
+            printf("A String : %s\n",yytext);
             }
 
-{DIGIT}+"."{DIGIT}*        {
-            printf( "A float: %s (%g)\n", yytext,
-                    atof( yytext ) );
+{DIGIT}+(\.{DIGIT}+)?(\Ee[+-]?{DIGIT}+)? {
+             printf("Real number: %s\n",yytext);
             }
-
-if|then|begin|end|procedure|function        {
-            printf( "A keyword: %s\n", yytext );
-            }
-
 {ID}        printf( "An identifier: %s\n", yytext );
+
+{KEYWORD}   printf("A Keyword: %s\n",yytext);
+
 
 "+"|"-"|"*"|"/"   printf( "An operator: %s\n", yytext );
 

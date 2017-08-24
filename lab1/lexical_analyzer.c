@@ -11,7 +11,7 @@ char *keywords[15] = {"start", "finish", "then", "if", "repeat", "var",
 	"int", "float", "do",
 	"read", "print", "void", "return", "dummy", "program"};	
 
-char *relationalOperators[] = {"==", "<", ">", "=!=", "=>", "=<"};
+char *relationalOperators[] = {"==", "<", ">", "=>", "=<"};
 
 char otherOperators[6] = {':', '+', '-', '*', '/', '%'};
 char delimiters[9] = {'.', '(', ')', ',', '{', '}', ';', '[', ']'};
