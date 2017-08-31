@@ -1,7 +1,7 @@
 a.out: lex.yy.c
 	gcc -o a.out lex.yy.c -ll 
 
-lex.yy.c: flex.l 
+lex.yy.c: bkm.l 
 	lex bkm.l
 
 clean:

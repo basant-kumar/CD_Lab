@@ -26,10 +26,7 @@ comment [//]
 
 {ws}	{}
 
-int|float|do|break|continue|finish|then|if|else|void|double|char|return|while|for|switch|auto|extren|volatile   
-			{
-				printf("A Keyword: %s\n",yytext);
-			}
+
 
 {number} {	int yylval=installNum();
 			printf("A Real Number: %s\n", yytext);
@@ -50,6 +47,8 @@ int|float|do|break|continue|finish|then|if|else|void|double|char|return|while|fo
 		{
 			printf("A Comment: %s\n",yytext);
 		}
+
+
 
 .           printf( "Unrecognized character: %s\n", yytext );
 

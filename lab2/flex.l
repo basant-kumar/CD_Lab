@@ -16,10 +16,16 @@ L        [\n]
 S        []
 QUOTE    ["]
 STRING   {QUOTE}({LETTER}|{S})*{QUOTE}
-KEYWORD  [int|float|do|finish|then|if|else|void|double|char|return|while|for|switch|auto|extren|volatile|]
+KEYWORD  [int|float|do|finish|then|if|else|void|double|char|return|while|for|switch|auto|extren|volatile]
+DELIMETER [(|)]
 
 
 %%
+
+"("|")"|"{"|"}"|"["|"]"|","|";"|":"
+            {
+                printf("A Delimeter: %s\n",yytext);
+            }
 
 {STRING}  {
             printf("A String : %s\n",yytext);
@@ -34,6 +40,8 @@ KEYWORD  [int|float|do|finish|then|if|else|void|double|char|return|while|for|swi
 
 
 "+"|"-"|"*"|"/"   printf( "An operator: %s\n", yytext );
+
+"."|"("|")"|","|"{"|"}"|";"|"["|"[" printf("An Delimeter: %s\n",yytext);
 
 "{"[^}\n]*"}"     /* eat up one-line comments */
 
