@@ -1,0 +1,224 @@
+Terminals unused in grammar
+
+   DIVIDE
+   POWER
+
+
+Grammar
+
+    0 $accept: lines $end
+
+    1 lines: /* empty */
+    2      | lines line
+
+    3 line: exp END
+
+    4 exp: term
+    5    | exp PLUS term
+    6    | exp MINUS term
+
+    7 term: factor
+    8     | term TIMES factor
+
+    9 factor: NUMBER
+   10       | LEFT_PARENTHESIS exp RIGHT_PARENTHESIS
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+NUMBER (258) 9
+PLUS (259) 5
+MINUS (260) 6
+TIMES (261) 8
+DIVIDE (262)
+POWER (263)
+LEFT_PARENTHESIS (264) 10
+RIGHT_PARENTHESIS (265) 10
+END (266) 3
+
+
+Nonterminals, with rules where they appear
+
+$accept (12)
+    on left: 0
+lines (13)
+    on left: 1 2, on right: 0 2
+line (14)
+    on left: 3, on right: 2
+exp (15)
+    on left: 4 5 6, on right: 3 5 6 10
+term (16)
+    on left: 7 8, on right: 4 5 6 8
+factor (17)
+    on left: 9 10, on right: 7 8
+
+
+state 0
+
+    0 $accept: . lines $end
+
+    $default  reduce using rule 1 (lines)
+
+    lines  go to state 1
+
+
+state 1
+
+    0 $accept: lines . $end
+    2 lines: lines . line
+
+    $end              shift, and go to state 2
+    NUMBER            shift, and go to state 3
+    LEFT_PARENTHESIS  shift, and go to state 4
+
+    line    go to state 5
+    exp     go to state 6
+    term    go to state 7
+    factor  go to state 8
+
+
+state 2
+
+    0 $accept: lines $end .
+
+    $default  accept
+
+
+state 3
+
+    9 factor: NUMBER .
+
+    $default  reduce using rule 9 (factor)
+
+
+state 4
+
+   10 factor: LEFT_PARENTHESIS . exp RIGHT_PARENTHESIS
+
+    NUMBER            shift, and go to state 3
+    LEFT_PARENTHESIS  shift, and go to state 4
+
+    exp     go to state 9
+    term    go to state 7
+    factor  go to state 8
+
+
+state 5
+
+    2 lines: lines line .
+
+    $default  reduce using rule 2 (lines)
+
+
+state 6
+
+    3 line: exp . END
+    5 exp: exp . PLUS term
+    6    | exp . MINUS term
+
+    PLUS   shift, and go to state 10
+    MINUS  shift, and go to state 11
+    END    shift, and go to state 12
+
+
+state 7
+
+    4 exp: term .
+    8 term: term . TIMES factor
+
+    TIMES  shift, and go to state 13
+
+    $default  reduce using rule 4 (exp)
+
+
+state 8
+
+    7 term: factor .
+
+    $default  reduce using rule 7 (term)
+
+
+state 9
+
+    5 exp: exp . PLUS term
+    6    | exp . MINUS term
+   10 factor: LEFT_PARENTHESIS exp . RIGHT_PARENTHESIS
+
+    PLUS               shift, and go to state 10
+    MINUS              shift, and go to state 11
+    RIGHT_PARENTHESIS  shift, and go to state 14
+
+
+state 10
+
+    5 exp: exp PLUS . term
+
+    NUMBER            shift, and go to state 3
+    LEFT_PARENTHESIS  shift, and go to state 4
+
+    term    go to state 15
+    factor  go to state 8
+
+
+state 11
+
+    6 exp: exp MINUS . term
+
+    NUMBER            shift, and go to state 3
+    LEFT_PARENTHESIS  shift, and go to state 4
+
+    term    go to state 16
+    factor  go to state 8
+
+
+state 12
+
+    3 line: exp END .
+
+    $default  reduce using rule 3 (line)
+
+
+state 13
+
+    8 term: term TIMES . factor
+
+    NUMBER            shift, and go to state 3
+    LEFT_PARENTHESIS  shift, and go to state 4
+
+    factor  go to state 17
+
+
+state 14
+
+   10 factor: LEFT_PARENTHESIS exp RIGHT_PARENTHESIS .
+
+    $default  reduce using rule 10 (factor)
+
+
+state 15
+
+    5 exp: exp PLUS term .
+    8 term: term . TIMES factor
+
+    TIMES  shift, and go to state 13
+
+    $default  reduce using rule 5 (exp)
+
+
+state 16
+
+    6 exp: exp MINUS term .
+    8 term: term . TIMES factor
+
+    TIMES  shift, and go to state 13
+
+    $default  reduce using rule 6 (exp)
+
+
+state 17
+
+    8 term: term TIMES factor .
+
+    $default  reduce using rule 8 (term)

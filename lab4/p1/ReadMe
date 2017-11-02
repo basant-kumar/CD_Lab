@@ -1,0 +1,25 @@
+//Remove left recursion of the following grammer
+E->E+T|T
+T->T*F|F
+F->(T)|id
+
+
+//Solution
+E->TE'
+E'->+TE'|epsilon
+T->FT'
+T'->*FT'|epsilon
+F->(T)|id
+
+//Example 2
+E->E+T|E-S|T|S
+T->F|T/S|X
+S->X
+X->x
+
+//Solution
+E->TE'|SE'
+E'->+TE'|-SE'|eps
+T->FT'|XT'
+T'->/ST'|eps
+

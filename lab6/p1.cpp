@@ -7,13 +7,13 @@ int main(){
 
 	// open a file in read mode.
 	char data[1024];
-	ifstream infile; 
-	infile.open("input.txt"); 
-	infile >> data; 
-	cout << data << endl;
-	infile >> data; 
-	cout << data << endl; 
-	infile.close();
+	ifstream file("input.txt");
+	string str; 
+    while (getline(file, str))
+    {
+        cout<<str<<endl;
+    }
+	file.close();
 
 
 	return 0;
